@@ -53,8 +53,8 @@ public class NoteActivity extends AppCompatActivity {
         adapterCourses.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinnerCourses.setAdapter(adapterCourses);
 
-        readDisplayStateValues();
-        saveOriginalNoteValues();
+        readDisplayStateValues(); // display notes
+        saveOriginalNoteValues(); // store notes in view model
 
         mTextNoteTitle = findViewById(R.id.text_note_title);
         mTextNoteText = findViewById(R.id.text_note_text);
@@ -90,10 +90,10 @@ public class NoteActivity extends AppCompatActivity {
                 Log.i(TAG, "Cancelling note at position " + mNotePosition);
                 DataManager.getInstance().removeNote(mNotePosition);
             } else {
-                storePreviousNoteValues();
+                storePreviousNoteValues(); // put data in the views
             }
         } else {
-            saveNote();
+            saveNote(); // pick values from views and store them on note object
         }
         Log.d(TAG, "onPause");
     }
@@ -162,9 +162,20 @@ public class NoteActivity extends AppCompatActivity {
         } else if (id == R.id.action_cancel) {
             mIsCancelling = true;
             finish();
+        } else if (id == R.id.action_next) {
+            moveNext();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void moveNext() {
+        saveNote();
+        ++mNotePosition;
+        mNote = DataManager.getInstance().getNotes().get(mNotePosition);
+
+        saveOriginalNoteValues();
+        displayNote(mSpinnerCourses, mTextNoteTitle, mTextNoteText);
     }
 
     private void sendEmail() {
