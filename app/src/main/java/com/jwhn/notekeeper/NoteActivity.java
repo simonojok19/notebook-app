@@ -2,20 +2,16 @@ package com.jwhn.notekeeper;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModelProvider;
-
-
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProvider;
 
 import java.util.List;
 
@@ -119,8 +115,9 @@ public class NoteActivity extends AppCompatActivity {
 
     private void saveNote() {
         mNote.setCourse((CourseInfo) mSpinnerCourses.getSelectedItem());
+//        mNote.setText(mTextNoteText.getText().toString());
+        mNote.setTitle(mTextNoteTitle.getText().toString());
         mNote.setText(mTextNoteText.getText().toString());
-        mNote.setTitle(mTextNoteText.getText().toString());
     }
 
     private void readDisplayStateValues() {
